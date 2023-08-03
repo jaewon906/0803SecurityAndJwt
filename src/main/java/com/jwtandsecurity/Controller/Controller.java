@@ -19,4 +19,9 @@ public class Controller {
         return memberService.login(memberDTO);
     }
 
+    @PostMapping("authenticated")
+    public String authenticated() {
+        return "ok";
+    }
+
 }

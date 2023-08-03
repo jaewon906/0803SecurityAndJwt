@@ -7,10 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemberService {
 
-    private Long expired = 60 * 1000L;
-
     public String login(MemberDTO memberDTO) {
 
+        Long expired = 60 * 60 * 1000L;
         return JwtUtil.createJwt(memberDTO, expired);
     }
 
