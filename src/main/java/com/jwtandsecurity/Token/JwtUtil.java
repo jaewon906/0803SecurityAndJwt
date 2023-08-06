@@ -15,17 +15,19 @@ public class JwtUtil {
     private static final String secretKey = "salgbTJWujnsJejsfSLfghaSSjAUWQdjGFUCDOWdJFUAIOFGDGAsdldfojwahfdgFGsajhsdl";
     protected static final byte[] secretKeyToByte = secretKey.getBytes();
 
-    public static String createJwt(MemberDTO memberDTO, Long expiredMs){
+    public static TokenDTO createJwt(MemberDTO memberDTO, Long expiredMs){
         Claims claims = Jwts.claims();
         claims.put("username", memberDTO.getUsername());
         Key key = Keys.hmacShaKeyFor(JwtUtil.secretKeyToByte);
 
-        return Jwts.builder()
+        String accessToken= Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiredMs))
                 .signWith(key,SignatureAlgorithm.HS256)
                 .compact();
+
+        return TokenDTO.builder().grantType("Bearer").accessToken(accessToken).build();
 
     }
 
