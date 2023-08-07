@@ -33,7 +33,7 @@ public class SecurityConfig {
                             .requestMatchers("/api/authenticated").authenticated()
                             .requestMatchers("api/role").hasRole("USER");
                 })
-                .addFilterBefore(new JwtFilter(memberService, new ModelMapper(),jwtUtil), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new JwtFilter(new ModelMapper(),jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
